@@ -23,7 +23,7 @@ namespace Mid
 
 		void Set(int x, int y, const glm::u8vec4& v);
 
-		void Load(const char* fn);
+		bool Load(const char* fn);
 
 		void encode_png()
 		{
@@ -107,7 +107,7 @@ namespace Mid
 		p[3] = v[3];
 	}
 
-	void Image::Load(const char* fn)
+	bool Image::Load(const char* fn)
 	{
 		std::string filename = fn;
 		std::string ext = filename.substr(filename.find_last_of(".") + 1);
@@ -118,6 +118,7 @@ namespace Mid
 		}
 		int width, height, chn;
 		uint8_t* data = stbi_load(fn, &width, &height, &chn, 4);
+		if (!width || !height || !data) return false;
 		this->width = width;
 		this->height = height;
 		this->pixels.resize(width * height * 4);
@@ -131,6 +132,7 @@ namespace Mid
 		this->code.resize(size);
 		fread(this->code.data(), 1, size, fp);
 		fclose(fp);
+		return true;
 	}
 
 	void Image::CreateRGBA(const Image& img_rgb, const Image& img_a)
