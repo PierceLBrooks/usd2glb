@@ -2,3 +2,6 @@
 	path = glm
 	url = https://github.com/g-truc/glm
 
+[submodule "tinyusdz"]
+	path = tinyusdz
+	url = https://github.com/PierceLBrooks/tinyusdz.git
